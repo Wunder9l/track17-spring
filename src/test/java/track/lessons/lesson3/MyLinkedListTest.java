@@ -19,7 +19,6 @@ public class MyLinkedListTest {
         list.get(0);
     }
 
-
     @Ignore
     @Test
     public void listAdd() throws Exception {
@@ -28,7 +27,6 @@ public class MyLinkedListTest {
 
         Assert.assertTrue(list.size() == 1);
     }
-
 
     @Ignore
     @Test
