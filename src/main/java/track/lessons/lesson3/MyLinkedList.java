@@ -1,12 +1,16 @@
 package track.lessons.lesson3;
 
 import java.util.NoSuchElementException;
+import java.util.Queue;
 
 /**
  * Должен наследовать List
  * Односвязный список
  */
-public class MyLinkedList extends List {
+public class MyLinkedList extends List /*implements Queue */ {
+
+    Node first;
+    Node last;
 
     /**
      * private - используется для сокрытия этого класса от других.
@@ -26,13 +30,38 @@ public class MyLinkedList extends List {
         }
     }
 
+    public MyLinkedList() {
+        first = last = null;
+    }
+
     @Override
     void add(int item) {
+        if (null == last) {
+            first = new Node(null, null, item);
+            last = first;
+        } else {
+            last.next = new Node(last, null, item);
+            last = last.next;
+        }
+
     }
 
     @Override
     int remove(int idx) throws NoSuchElementException {
-        return 0;
+        if (idx < size) {
+            Node currentNode = first;
+            for (int i = 0; i < idx; ++i) {
+                currentNode = currentNode.next;
+            }
+            int returnValue = currentNode.val;
+            for (int i = idx; i < size; ++i) {
+                // TODO: перезаписать ссылки
+            }
+            --size;
+            return returnValue;
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -40,8 +69,4 @@ public class MyLinkedList extends List {
         return 0;
     }
 
-    @Override
-    int size() {
-        return 0;
-    }
 }
