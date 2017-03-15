@@ -29,7 +29,7 @@ public class MyArrayList extends List {
             values[size] = item;
             ++size;
         } else {
-            resize(values.length * 2);
+            resize(values.length * 2 + 1);
             values[size] = item;
             ++size;
         }

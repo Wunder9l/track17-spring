@@ -43,22 +43,30 @@ public class MyLinkedList extends List /*implements Queue */ {
             last.next = new Node(last, null, item);
             last = last.next;
         }
-
+        ++size;
     }
 
     @Override
     int remove(int idx) throws NoSuchElementException {
+        Node currentNode = getNode(idx);
+        int returnValue = currentNode.val;
+        for (int i = idx; i < size; ++i) {
+            if (currentNode.prev != null)
+                currentNode.prev.next = currentNode.next;
+            if (currentNode.next != null)
+                currentNode.next.prev = currentNode.prev;
+        }
+        --size;
+        return returnValue;
+    }
+
+    private Node getNode(int idx) throws NoSuchElementException {
         if (idx < size) {
             Node currentNode = first;
             for (int i = 0; i < idx; ++i) {
                 currentNode = currentNode.next;
             }
-            int returnValue = currentNode.val;
-            for (int i = idx; i < size; ++i) {
-                // TODO: перезаписать ссылки
-            }
-            --size;
-            return returnValue;
+            return currentNode;
         } else {
             throw new NoSuchElementException();
         }
@@ -66,7 +74,7 @@ public class MyLinkedList extends List /*implements Queue */ {
 
     @Override
     int get(int idx) throws NoSuchElementException {
-        return 0;
+        return getNode(idx).val;
     }
 
 }
