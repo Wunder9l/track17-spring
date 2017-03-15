@@ -51,10 +51,12 @@ public class MyLinkedList extends List /*implements Queue */ {
         Node currentNode = getNode(idx);
         int returnValue = currentNode.val;
         for (int i = idx; i < size; ++i) {
-            if (currentNode.prev != null)
+            if (currentNode.prev != null) {
                 currentNode.prev.next = currentNode.next;
-            if (currentNode.next != null)
+            }
+            if (currentNode.next != null) {
                 currentNode.next.prev = currentNode.prev;
+            }
         }
         --size;
         return returnValue;
