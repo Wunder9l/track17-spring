@@ -43,7 +43,7 @@ public class MyArrayList extends List {
 
     @Override
     int remove(int idx) throws NoSuchElementException {
-        if (idx < size) {
+        if ((idx >= 0) && (idx < size)) {
             int returnValue = values[idx];
             if (size > idx + 1) {
                 System.arraycopy(values, idx + 1, values, idx, size - idx - 1);

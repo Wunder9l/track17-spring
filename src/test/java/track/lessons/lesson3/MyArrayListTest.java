@@ -1,6 +1,7 @@
 package track.lessons.lesson3;
 
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -79,5 +80,37 @@ public class MyArrayListTest {
         list.remove(0);
 
         Assert.assertTrue(list.size() == 0);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void listRemoveIndexGreaterSize() throws Exception {
+        List list = new MyArrayList(1);
+        list.add(1);
+        Assert.assertTrue(list.size() == 1);
+        list.remove(1);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void listRemoveIndexSmallerSize() throws Exception {
+        List list = new MyArrayList(1);
+        list.add(1);
+        Assert.assertTrue(list.size() == 1);
+        list.remove(-1);
+    }
+
+    @Test
+    public void addRemoveValueCheck() throws Exception {
+        List list = new MyArrayList(0);
+        for (int i = 1; i < 1000; ++i) {
+            if (i % 3 == 0) {
+                list.remove(list.size() - 1);
+            } else {
+                list.add(i);
+            }
+        }
+
+        Random random = new Random();
+        int index = random.nextInt(333);
+        Assert.assertTrue(list.get(index) == 1 + 3 * index);
     }
 }

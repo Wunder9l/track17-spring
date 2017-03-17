@@ -1,13 +1,12 @@
 package track.lessons.lesson3;
 
 import java.util.NoSuchElementException;
-import java.util.Queue;
 
 /**
  * Должен наследовать List
  * Односвязный список
  */
-public class MyLinkedList extends List /*implements Queue */ {
+public class MyLinkedList extends List implements Stack, Queue {
 
     Node first;
     Node last;
@@ -48,22 +47,28 @@ public class MyLinkedList extends List /*implements Queue */ {
 
     @Override
     int remove(int idx) throws NoSuchElementException {
-        Node currentNode = getNode(idx);
-        int returnValue = currentNode.val;
-        for (int i = idx; i < size; ++i) {
-            if (currentNode.prev != null) {
-                currentNode.prev.next = currentNode.next;
+        if (idx == 0) {
+            return pop();
+        } else if (idx == size - 1) {
+            return dequeue();
+        } else {
+            Node currentNode = getNode(idx);
+            int returnValue = currentNode.val;
+            for (int i = idx; i < size; ++i) {
+                if (currentNode.prev != null) {
+                    currentNode.prev.next = currentNode.next;
+                }
+                if (currentNode.next != null) {
+                    currentNode.next.prev = currentNode.prev;
+                }
             }
-            if (currentNode.next != null) {
-                currentNode.next.prev = currentNode.prev;
-            }
+            --size;
+            return returnValue;
         }
-        --size;
-        return returnValue;
     }
 
     private Node getNode(int idx) throws NoSuchElementException {
-        if (idx < size) {
+        if ((idx >= 0) && (idx < size)) {
             Node currentNode = first;
             for (int i = 0; i < idx; ++i) {
                 currentNode = currentNode.next;
@@ -79,4 +84,56 @@ public class MyLinkedList extends List /*implements Queue */ {
         return getNode(idx).val;
     }
 
+    @Override
+    public int pop() throws NoSuchElementException {
+        if (first == null) {
+            throw new NoSuchElementException();
+        } else {
+            int returnValue;
+            returnValue = first.val;
+            first = first.next;
+            --size;
+            if (size == 0) {
+                last = first;
+            } else {
+                first.prev = null;
+            }
+            return returnValue;
+        }
+    }
+
+    @Override
+    public void push(int value) {
+        Node node = new Node(null, first, value);
+        if (null != first) {
+            first.prev = node;
+            first = node;
+        } else {
+            first = last = node;
+        }
+        ++size;
+    }
+
+    @Override
+    public int dequeue() {
+        if (last == null) {
+            throw new NoSuchElementException();
+        } else {
+            int returnValue;
+            returnValue = last.val;
+            last = last.prev;
+            --size;
+            if (size == 0) {
+                last = first = last;
+            } else {
+                last.next = null;
+            }
+            return returnValue;
+        }
+    }
+
+    @Override
+    public void enqueue(int value) {
+        push(value);
+    }
 }
