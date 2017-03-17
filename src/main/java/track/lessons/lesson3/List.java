@@ -31,8 +31,7 @@ public abstract class List {
      */
     abstract int remove(int idx) throws NoSuchElementException;
 
-    public List()
-    {
+    public List() {
         size = 0;
     }
 
@@ -44,7 +43,7 @@ public abstract class List {
     /**
      * Кол-во элементов списка
      */
-    public int size(){
+    public int size() {
         return size;
     }
 
