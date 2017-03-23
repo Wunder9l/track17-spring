@@ -12,9 +12,6 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import track.container.config.*;
 
-/**
- * TODO: Реализовать
- */
 public class JsonConfigReader implements ConfigReader {
 
     @Override
@@ -26,7 +23,7 @@ public class JsonConfigReader implements ConfigReader {
         System.out.println(configFile.getAbsolutePath());
         try {
             Root root = objectMapper.readValue(configFile, Root.class);
-            System.out.println("Beans Objects\n" + root.getBeans().toString());
+//            System.out.println("Beans Objects\n" + root.getBeans().toString());
             return root.getBeans();
 
         } catch (IOException e) {
