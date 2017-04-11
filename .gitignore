@@ -2,3 +2,5 @@ target/
 classes/
 *.iml
 .idea
+logs/
+db_settings
